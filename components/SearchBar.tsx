@@ -1,9 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SearchBar() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
+  const [data, setData] = useState<any | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchData() {
+      const res = await fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      });
+
+      const json = await res.json();
+      if (!cancelled) setData(json);
+    }
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [query]);
+
+  console.log(data);
 
   const handleSearch = () => {
     console.log("Searching for:", query);
