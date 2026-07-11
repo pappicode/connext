@@ -32,8 +32,10 @@ export default function SearchBar() {
   console.log(data);
 
   const handleSearch = () => {
-    console.log("Searching for:", query);
-  };
+  if (!query.trim()) return;
+
+  router.push(`/search?q=${encodeURIComponent(query)}`);
+};
 
   return (
     <div className="mt-10 flex gap-4">
