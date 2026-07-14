@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SearchBar() {
   const [query, setQuery] = useState<string>("");
@@ -31,6 +32,7 @@ export default function SearchBar() {
 
   console.log(data);
 
+  const router = useRouter();
   const handleSearch = () => {
   if (!query.trim()) return;
 

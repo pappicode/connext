@@ -1,23 +1,27 @@
+import PersonCard from "@/components/Personcard";
 export default async function SearchPage({
   searchParams,
 }: {
   searchParams: Promise<{ q?: string }>;
 }) {
-  const params = await searchParams;
+  const { q } = await searchParams;
 
   return (
-    <main className="min-h-screen bg-[#0B0B0F] text-white flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold">
-        Search Results
-      </h1>
+  <main className="min-h-screen bg-[#0B0B0F] text-white p-10">
+    <h1 className="text-4xl font-bold">Search Results</h1>
 
-      <p className="mt-6 text-gray-400">
-        Searching for
-      </p>
+    <p className="mt-6 text-gray-400">
+      Searching for: <span className="text-blue-400">{q}</span>
+    </p>
 
-      <h2 className="mt-2 text-3xl font-semibold text-blue-400">
-        {params.q}
-      </h2>
-    </main>
-  );
+    <div className="mt-8">
+      <PersonCard
+        name="Andrew Ng"
+        title="Professor"
+        organization="Stanford University"
+        match={98}
+      />
+    </div>
+  </main>
+);
 }
